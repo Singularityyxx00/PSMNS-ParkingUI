@@ -227,22 +227,25 @@
 
   <script>
     function updateSlots() {
-      fetch('/data')
-        .then(res => res.json())
-        .then(data => {
-          for (const [slot, status] of Object.entries(data.slots)) {
-            const el = document.getElementById(slot);
-            if (el) {
-              el.className = 'slot ' + status;
-              el.querySelector('.slot-name').textContent = slot;
-              el.querySelector('.slot-status').textContent = status === 'occupied' ? 'Occupied' : 'Available';
-            }
-          }
-        })
-        .catch(err => {
-          console.error('Failed to fetch slot data:', err);
-        });
-    }
+  fetch('slot_status.json?nocache=' + new Date().getTime())
+    .then(res => res.json())
+    .then(data => {
+      for (const [slot, statusRaw] of Object.entries(data.slots)) {
+        const el = document.getElementById(slot);
+        if (el) {
+          // Map 'available' to 'vacant'
+          const status = statusRaw === 'available' ? 'vacant' : statusRaw;
+          el.className = 'slot ' + status;
+          el.querySelector('.slot-name').textContent = slot;
+          el.querySelector('.slot-status').textContent =
+            status === 'occupied' ? 'Occupied' : 'Available';
+        }
+      }
+    })
+    .catch(err => {
+      console.error('Failed to fetch slot data:', err);
+    });
+}
     setInterval(updateSlots, 1500);
     updateSlots();
   </script>
