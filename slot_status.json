@@ -1,4 +1,14 @@
 {
-  "slot1": "occupied",
-  "slot2": "available"
+  "slots": {
+    "Slot 1": "occupied",
+    "Slot 2": "available",
+    "Slot 3": "occupied",
+    "Slot 4": "available",
+    "Slot 5": "occupied",
+    "Slot 6": "available",
+    "Slot 7": "available",
+    "Slot 8": "available",
+    "Slot 9": "available",
+    "Slot 10": "occupied"
+  }
 }
